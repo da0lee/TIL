@@ -69,6 +69,41 @@ localStorage.clear();
 ```
 <br/>
 
+
+
+### Oect, Array 데이터타입 저장
+
+https://ichi.pro/ko/post/118183090228010
+
+<br/>
+
+##### 데이터 저장 
+
+JSON # stringify를 사용하지 않은 경우 사용자 Object는 Object 문자열 "[object Object]"로 변환된다.
+```js
+const user = {
+    name: "nnamdi",
+    age: 27,
+    occupation: "doesn't know what he is doing"
+}
+localStorage.setItem("user", JSON.stringify(user))
+localStorage.setItem("user", JSON.stringify(user))  
+```
+
+<br/>
+
+##### 데이터 읽어오기    
+
+이제 JSON 은 문자열이기 때문에 속성에 액세스 할 수 없다. 속성에 액세스하려면 JSON # parse API를 사용하여 JSON 문자열을 JavaScript 값으로 변환해야 한다.
+```js
+localStorage.getItem("user") // "{ name: "nnamdi", age: 27, occupation: "doesn't know what he is doing" }"
+const userLocal = JSON.parse(localStorage.getItem("user")) // { name: "nnamdi", age: 27, occupation: "doesn't know what he is doing" }
+userLocal.name // "nnamdi" 
+```
+<br/>
+<hr>
+<br/>
+
 ```js
 // logout 할 때 login 정보 null로 설정
   Logout = () => {
