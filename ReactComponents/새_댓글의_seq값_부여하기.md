@@ -1,4 +1,4 @@
-> 소스코드 : 1주차 페이스북
+> 소스코드 : 1주차 페이스북_ji
 
 > services > PostService.js
 
