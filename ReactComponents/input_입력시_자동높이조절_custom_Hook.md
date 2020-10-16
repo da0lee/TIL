@@ -2,7 +2,7 @@
 
 <br/>
 
-# input 입력시 자동으로 높이 늘어나는 Custom Hook
+# input 입력시 자동으로 높이 늘어나는 Custom Hook 1
 
 > hooks > useAutoFormHeight.js
 
@@ -75,4 +75,114 @@ const handleCommentSubmit = useCallback(
           댓글달기
         </button>
       </form>
+```
+<br/>
+<hr/>
+<br/>
+
+> 소스코드 : prgrms-rct-5-class-3
+
+<br/>
+
+# input 입력시 자동으로 높이 늘어나는 Custom Hook 2
+
+> hooks > useAutoHeight.js
+
+```js
+import { useRef, useLayoutEffect } from 'react';
+
+export default function useAutoHeight(lineHeight, contents) {
+  const ref = useRef(null);
+
+  useLayoutEffect(() => {
+    const { style, scrollHeight } = ref.current;
+    style.height = 'auto';
+    style.height = `${scrollHeight}px`;
+  }, [contents]);
+
+  // Q1 return 값을 [] 안에 넣은 이유가 무엇인가요? return 값이 dom 이라서..? []을 빼면 다음과 같은 에러가 발생합니다.
+  // 에러 :  CommentForm.js:5 Uncaught TypeError: Invalid attempt to destructure non-iterable instance. In order to be iterable, non-array objects must have a [Symbol.iterator]() method.
+  return [ref];
+}
+```
+
+<br/>
+
+> pages > Home > PostForm.js
+
+```js
+import useAutoHeight from '@/hooks/useAutoHeight';
+
+const PostForm = (props) => {
+  // 가변값 props로 구조 분해 할당하여 설정하여 다시 해당 함수에 props로 내려줌
+  const { minHeight = 100, lineHeight = 20, placeholder = '무슨 생각을 하고 계신가요?' } = props;
+
+  const [contents, setContents] = useState('');
+  const dispatch = useDispatch();
+  const userState = useSelector(selectors.users.getUser);
+
+  // 참조 객체 자체를 생성하는 custom hook이므로 함수에 필요한 값 전달해서 textareaEl를 생성하여 ref에 할당해준다.
+  const [textareaEl] = useAutoHeight(lineHeight, contents);
+
+  const writePost = useCallback(
+    (contents) => {
+      dispatch(actions.posts.writePost(contents, userState));
+    },
+    [userState]
+  );
+
+  return (
+    <form
+      className="write-form"
+      // Q onSubmit, onChange에 useCallback 안해주어도 괜찮은가
+      onSubmit={(e) => {
+        e.preventDefault();
+        writePost(contents);
+        setContents('');
+      }}>
+      <textarea
+        className="form-control input-lg"
+        placeholder={placeholder}
+        spellCheck="false"
+
+        // ref 설정
+        ref={textareaEl}
+        value={contents}
+        onChange={(e) => setContents(e.target.value)}
+      />
+      <button type="submit" className="btn btn-primary" disabled={!contents.trim().length}>
+        공유하기
+      </button>
+
+      <style jsx global>{`
+        .write-form > textarea.form-control {
+
+          // style jsx에 props 내려준다.
+
+          min-height: ${minHeight}px;
+          line-height: ${lineHeight}px;
+          padding: 20px;
+          font-size: 18px;
+          resize: none;
+          border: none;
+          border-radius: 0.5rem;
+          transition: box-shadow ease-in-out 1s;
+        }
+        .write-form > textarea:focus {
+          box-shadow: #999999 0 0 50px;
+        }
+        .write-form > button.btn {
+          float: right;
+          margin-bottom: 0;
+          margin-top: 16px;
+          background-color: #3b5999;
+          color: #fffffe;
+          border: none;
+          font-weight: 800;
+        }
+        .write-form {
+          margin-bottom: 100px;
+        }
+      `}</style>
+    </form>
 ```
