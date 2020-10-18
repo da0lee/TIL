@@ -94,14 +94,13 @@ import { useRef, useLayoutEffect } from 'react';
 export default function useAutoHeight(lineHeight, contents) {
   const ref = useRef(null);
 
+  //height를 두번주면 reflow가 두번 일어나지만 이 정도는 괜찮지 않나 싶다
   useLayoutEffect(() => {
     const { style, scrollHeight } = ref.current;
     style.height = 'auto';
     style.height = `${scrollHeight}px`;
   }, [contents]);
 
-  // Q1 return 값을 [] 안에 넣은 이유가 무엇인가요? return 값이 dom 이라서..? []을 빼면 다음과 같은 에러가 발생합니다.
-  // 에러 :  CommentForm.js:5 Uncaught TypeError: Invalid attempt to destructure non-iterable instance. In order to be iterable, non-array objects must have a [Symbol.iterator]() method.
   return [ref];
 }
 ```
@@ -134,7 +133,6 @@ const PostForm = (props) => {
   return (
     <form
       className="write-form"
-      // Q onSubmit, onChange에 useCallback 안해주어도 괜찮은가
       onSubmit={(e) => {
         e.preventDefault();
         writePost(contents);
