@@ -2,7 +2,7 @@
 
 <br/>
 
-# Infinity Scroll
+# Infinity Scroll, Lazy Loading
 
 > SearchResult.js
 ```js
