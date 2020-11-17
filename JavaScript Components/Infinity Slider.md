@@ -92,7 +92,7 @@ https://velog.io/@surim014/JavaScript-Closure%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%
 
 ```js
 // window.onload
-// window.onload를 하지 않으면, clientWidth를 찍어봐도 css에 값을 먹이기 전 default인 0이 들어온다. 이 작업을 해줘야 원하는 element의 clientWidth를 얻을 수 있다.
+// 개발자 도구의 network에서 살펴보면, html는 읽혔지만 (script가 포함된)아직 image가 읽혀지기 전이기 때문에 width가 0이 찍혔다. 이 때 image를 await하거나 window.onload를 해주면 image의 clientWidth를 얻을 수 있다.
  window.onload = function() {
     const slider = document.querySelector('ul.slider')
     const sliderLis = slider.querySelectorAll('.slider li')
@@ -105,20 +105,20 @@ https://velog.io/@surim014/JavaScript-Closure%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%
     sliderArrows.addEventListener('click', moveSlider)
 
     // Call Stack
-    // 0. GC에 window.onload = function() {}
-    // 1. window.onload라는 scope 안에 querySelector로 찾은 DOM들, sliderArrows에 addEventListener, 2번의 moveSlider scope에서 이용하는 변수 moveDist, currentIndex 선언
-    // 2. 1번의 callback 함수인 moveSlider()
+    // 0. Global Execution context에 window.onload = function() {}, addeventListener. addeventListener은 1번이 아닌 0번에 존재한다. sliderArrows가 DOM이기 때문에. 마찬가지로 click event에 대한 call back함수인 moveslider도 0번에 적재되어있다.
+    // 1. window.onload라는 scope 안에 querySelector로 찾은 DOM들, 2번의 moveSlider scope에서 이용하는 변수 moveDist, currentIndex 선언
+    // 2. 1번의 callback 함수인 moveSlider(). moveslide()는 0번 stack window의 addeventListener를 통해 탑재된 callback함수이므로 0번 stack에 적재되어있으나, 실행하면 2번 stack이 쌓이게 된다.
 
     // moveSlider()는 자신이 선언됐을 때의 환경 Scope를 기억하고 접근할 수 있다. (본인이 기억하고 있는 주변 상황에 대한 정보를 지속적으로 감지.)
-    // 그렇기에 moveSlider() 외부에 moveDist, currentIndex를 선언 한 후 moveSlider() 함수 내부에서 변수 값을 변경하는 로직을 짜면, click을 할 때마다 moveSlider()가 실행되며 moveDist, currentIndex의 값이 바뀌게 된다. (Closer 이용)
-    // moveSlider() 안쪽에 변수를 선언하게 되면, 마찬가지로 자신이 선언됐을 때의 환경 Scope를 기억하기 때문에 한 번 0으로 참조한 값이 변하지 않는다.
+    // 그렇기에 moveSlider() 외부에 moveDist, currentIndex를 선언 한 후 moveSlider() 함수 내부에서 변수 값을 변경하는 로직을 짜면, click을 할 때마다 moveSlider()가 실행되며 moveDist, currentIndex의 값이 바뀌게 된다. moveslide()에서 사용해야하기 때문에 currentIndex,moveDist는 없어지지 않고 살아있기 때문이다. (Closer 이용)
+    // 함수가 실행되어 일을 처리하고, 종료되면 그 안에서 참조하던 값들도 사라지기 때문에 moveSlider() 안쪽에 변수를 선언하게 되면, 함수 종료 후 moveDist, currentIndex를 찾을 수 없다. 따라서 변경도 불가하다.
   
     const INIT_INDEX = 0
     const INIT_DIST = 0
     let currentIndex = INIT_INDEX
     let moveDist = INIT_DIST
 
-    setSliderLeft() {
+    moveSliderLeft() {
       slider.style.left = `${moveDist}px`;
     }
 
@@ -129,22 +129,22 @@ https://velog.io/@surim014/JavaScript-Closure%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%
         if (currentIndex === INIT_INDEX) {
           currentIndex = sliderLis.length -1
           moveDist = -(liWidth * currentIndex)
-          setSliderLeft()
+          moveSliderLeft()
         } else {
           currentIndex -= 1
           moveDist += liWidth
-          setSliderLeft()
+          moveSliderLeft()
         }       
       } else {
         // next arrow를 눌렀는데 맨 마지막 페이지 일 때
         if (currentIndex === sliderLis.length -1) {
           currentIndex = INIT_INDEX
           moveDist = INIT_DIST
-          setSliderLeft()
+          moveSliderLeft()
         } else {
           currentIndex += 1
           moveDist -= liWidth
-          setSliderLeft()
+          moveSliderLeft()
         }
       }
     }
