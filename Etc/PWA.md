@@ -1,4 +1,4 @@
-# PWA (Procressive Web Apps)
+# PWA (Progressive Web Apps)
 
 ![](https://altenull.github.io/images/pwa/capability&reach2.png)     
 출처: https://altenull.github.io/2018/02/25/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%A0%88%EC%8B%9C%EB%B8%8C-%EC%9B%B9-%EC%95%B1-Progressive-Web-Apps-%EB%9E%80/
