@@ -1,4 +1,4 @@
-# PWA (Procressive Web Apps)
+# PWA (Progressive Web Apps)
 
 ![](https://altenull.github.io/images/pwa/capability&reach2.png)     
 출처: https://altenull.github.io/2018/02/25/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%A0%88%EC%8B%9C%EB%B8%8C-%EC%9B%B9-%EC%95%B1-Progressive-Web-Apps-%EB%9E%80/
@@ -29,13 +29,13 @@
 
 <br/>
 
-1. Servies Worker
+### 1. Servies Worker
 
 푸시 알림 및 리소스 캐싱, 오프라인 기능을 가능하게 하는 PWA의 핵심 기술이다. 
 
 <br/>
 
-2. Web App Manifest
+### 2. Web App Manifest
 
 아이콘, 앱의 이름, 배경색, 테마 등 App에 필요한 리소스를 정의한 json 파일이다.     
 
@@ -43,7 +43,7 @@
 
 <br/>
 
-3. HTTPS (보안 컨텍스트)
+### 3. HTTPS (보안 컨텍스트)
 
 지리적 위치, Servies Worker 같은 운영체제의 여러 특별한 권한들을 부여 받기 때문에, PWA는 보안 네트워크를 통해 ​​제공되어야 한다.
 
