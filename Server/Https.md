@@ -1,9 +1,13 @@
 # Https
  Hypertext Transfer Protocol Over Secure Socket Layer의 약자. HTML을 전송하기 위한 통신규약(Http) 중 보안(s)이 강화된 것이다. 
+
+  <br/>
  
  ## 장점
- 1. 내가 사이트에 보내는 정보들을 제 3자가 보지 못하게 한다.
- 2. 접속한 사이트가 믿을 만한 곳인지 알려준다.
+ 1. 내가 server에 보내는 정보들을 제 3자가 탈취하거나 변형하지 못한다.
+ 2. 접속한 server가 믿을 만한 곳인지 알려준다.
+ 
+ <br/>
 
 ## SSL 통신과정
 
