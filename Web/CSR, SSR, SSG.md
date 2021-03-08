@@ -65,3 +65,11 @@
 ## SSG (Static Site Generation)
 
 Next.js를 이용하면, 첫 페이지는 SSR을 이용하고, 그 이후의 인터렉션에 대해서는 Link, Rout 등을 통해 CSR로 처리할 수 있다. 
+
+<br/>
+
+`오늘 공부한 내용`
+- https://www.youtube.com/watch?v=iZ9csAfU5Os
+- https://www.youtube.com/watch?v=C6uELkDh-60
+- https://www.youtube.com/watch?v=6Ti_A3vMJvk
+- https://www.youtube.com/watch?v=5W72UHb-9iI
