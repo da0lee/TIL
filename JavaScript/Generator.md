@@ -39,9 +39,13 @@ const result = fn()
 ```
 <br/>
 
-## 배열을 뒤집어 출력 시 메모리 절약
+## 메모리의 절약
 
-### reverse
+<br/>
+
+### 배열을 뒤집어 출력 시
+
+### Reverse
 ```js
 let arr = [1,2,3,4,5]
 
@@ -53,8 +57,10 @@ reverse 메서드로 인해 뒤집힌 배열이 하나 더 생성되어 메모�
 
 <br/>
 
-generator
+### Generator
 ```js
+let arr = [1,2,3,4,5]
+
 function * reverse(arr) {
   for (let i = arr.length-1; i >= 0; i--) {
     yield arr[i]
@@ -65,6 +71,40 @@ for (let value of reverse(arr) {
   console.log(value)
 })
 ```
+
+<br/>
+
+### Filter 기능 사용 시
+
+### Filter
+```js
+let arr = [1,2,3,4,5]
+
+for (let value of arr.filter((num)=> num >2)) {
+  console.log(value)
+}
+```
+filter 메서드로 인해 뒤집힌 배열이 하나 더 생성되어 메모리를 두 배로 사용하게 되었다.
+
+<br/>
+
+### Generator
+```js
+let arr = [1,2,3,4,5]
+
+function * filter(arr, condition) {
+  for (let value of arr) {
+    if (condition(value){
+      yield value
+    })
+  }
+}
+
+for (let value of reverse(arr, (num)=> num > 2) {
+  console.log(value)
+})
+```
+
 
 <br/>
 <hr/>
