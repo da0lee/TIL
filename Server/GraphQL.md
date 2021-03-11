@@ -1,6 +1,6 @@
 # GraphQL
 
-![](https://blog.cloud-elements.com/hs-fs/hubfs/calls.jpg?width=1044&height=597&name=calls.jpg)
+![](https://blog.cloud-elements.com/hs-fs/hubfs/calls.jpg?width=1044&height=597&name=calls.jpg)       
 출처 : https://blog.cloud-elements.com/graphql-benefits-in-a-rest-api-but-how
 
 <br/>
