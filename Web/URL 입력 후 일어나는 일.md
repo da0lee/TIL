@@ -3,4 +3,5 @@
 
 
 `오늘 공부한 내용`
+- https://www.youtube.com/watch?v=o5yBl59wRbY
 

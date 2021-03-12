@@ -8,9 +8,15 @@
 
 - 운영체제
 - 컴퓨터의 사용자와 하드웨어 사이에서 중개자 역할을 해주는 프로그램
-- 사용자의 언어를 컴퓨터가 이해할 수 있는 언어로 번역해주는 프로그램
-- 응용 프로그램을 실행시킨다.
-- 사용자의 입/출력을 제어한다.
+- 사용자의 언어를 컴퓨터가 이해할 수 있는 언어로 번역해준다.
+- 응용 프로그램을 실행시키고, 사용자의 입/출력을 제어한다.
+
+<br/>
+
+## 운영체제의 목적
+
+- 사용자가 컴퓨터를 편리하게 사용
+- 하드웨어(CPU)의 효율적인 사용
 
 <br/>
 
@@ -23,14 +29,30 @@
 
 <br/>
 
-## 운영체제의 목적
+### 1. Batch System ( 일괄처리 시스템 )
 
-- 사용자가 컴퓨터를 편리하게 사용
-- 하드웨어(CPU)의 효율적인 사용
+![](https://qph.fs.quoracdn.net/main-qimg-b4f284e32c384b097bb93849e695e6a6.webp)     
+출처 : https://www.quora.com/What-is-a-batch-operating-system-time-sharing-operating-system-distributed-operating-system-network-operating-system-and-an-embedded-system
 
 <br/>
 
-### Time Sharing System ( 시분할 시스템 )
+비슷한 작업을 주기적으로 묶어 한 번에 처리. 기계적인 입출력 장치의 속도가 CPU 같은 전자적 장치의 속도보다 느리기 때문에 CPU가 계속해서 쉬는 상태(idle)인 경우가 많다.
+
+<br/>
+
+### 2. Multi-Programed System ( 다중 프로그램 시스템 )
+
+![](https://imgs.developpaper.com/imgs/3574004475-5d8a11aa1b19e_articlex.jpg)     
+출처 : https://developpaper.com/operating-system-learning-1-understanding-operating-system-design-requirements-from-the-development-history/
+
+<br/>
+
+CPU가 처리할 작업이 항상 있도록 하는 방식. 메모리 내에 있는 작업들을 하나씩 실행하다가, 실행중인 작업이 입출력 등에 의해 기다리는 상태가 되면 다른 작업으로 넘어가 작업을 계속 실행한다. 이 후 첫번째 작업이 끝나면 현재 작업을 중단하고 다시 첫번째 작업이 CPU를 차지하게 되는 방식이다.
+
+<br/>
+
+### 3. Time Sharing System ( 시분할 시스템 )
+
 ![](https://ecomputernotes.com/images/Time-Sharing-System-Active-State-of-User-5.jpg)     
 출처: https://ecomputernotes.com/fundamental/disk-operating-system/time-sharing-operating-system
 
