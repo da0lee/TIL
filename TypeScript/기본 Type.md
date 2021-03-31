@@ -92,6 +92,73 @@
 ```
 
 <br/>
+
+> 2.6 함수에서 타입 이용하기 (JS 💩 → TS ✨)
+
+```jsx
+{
+  // 1
+  // JS 💩
+  function jsAdd(num1, num2) {
+    return num1 + num2;
+  }
+
+  // TS ✨
+  function tsAdd(num1: number, num2: number): number {
+    return num1 + num2;
+  }
+
+  // 2
+  // JS 💩
+  function jsFetchNum(id) {
+    // code ...
+    return new Promise((resolve, reject) => {
+      resolve(100);
+    });
+  }
+
+  // TS ✨
+  function tsFetchNum(id: string): Promise<number> {
+    // code ...
+    return new Promise((resolve, reject) => {
+      resolve(100);
+    });
+  }
+}
+```
+
+<br/>
+
+> 2.7 함수 타입 이용 (spread, default, optional)
+
+```jsx
+// Optional Parameter : ?
+{
+  function printName(firstName: string, lastName?: string) {
+    console.log(firstName);
+    console.log(lastName);
+  }
+  printName('dayoung', 'lee');
+  printName('ellie');
+  printName('anna', undefined);
+
+  // Default Parameter
+  function printMessage(message: string = 'hello') {
+    console.log(message);
+  }
+
+  printMessage();
+
+  // Rest Parameter
+  function addNumbers(...numbers: number[]): number {
+    return numbers.reduce((a, b) => a + b, 0);
+  }
+
+  console.log(addNumbers(1, 2));
+}
+```
+
+<br/>
 <hr/>
 <br/>
 
