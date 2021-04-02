@@ -271,15 +271,89 @@
 
 ```jsx
 {
+  // union type을 사용할 때 어떤 케이스든 공통적인 프로퍼티를 가지고 있음으로서 조금 더 구분하기 쉽게 만든다. (분기처리 시)
   // printLoginState(state)
   // success -> response.body 출력, faile -> reson 출력
-  function printLoginState(state: LoginState) {
+  type SuccessState = {
+    result: 'success',
+    response: {
+      body: string,
+    },
+  };
+  type FailState = {
+    result: 'fail',
+    reson: string,
+  };
+  type LoginState = SuccessState | FailState;
+
+  function login2(id: string, pw: string): LoginState {
+    return {
+      result: 'success',
+      response: {
+        body: 'logged in',
+      },
+    };
+  }
+
+  // ASIS
+  function printLoginState2(state: LoginState) {
     if ('response' in state) {
       console.log(`${state.response.body}`);
     } else {
       console.log(`${state.reson}`);
     }
   }
+
+  // TOBE
+  function printLoginState2(state: LoginState) {
+    if (state.result === 'success') {
+      console.log(`${state.response.body}`);
+    } else {
+      console.log(`${state.reson}`);
+    }
+  }
+}
+```
+
+<br/>
+
+> 2-12 Intersection type
+
+```jsx
+{
+  type Student = {
+    name: string,
+    score: number,
+  };
+
+  type Worker = {
+    empolyeeId: number,
+    work: () => void,
+  };
+
+  function internWork(person: Student & Worker) {
+    console.log(person.name, person.work);
+  }
+
+  internWork({ name: 'dayoung', score: 1, empolyeeId: 123, work: () => {} });
+}
+```
+
+<br/>
+
+> 2-13 Enum은 무엇이고 좋은건가?
+
+```jsx
+{
+  // 변하지 않는 상수값의 관리
+  // JS : Object.freeze
+  const MAX_NUM = 6;
+  const MONDAY = 0;
+  const TUESDAY = 1;
+  const WEDNESDAY = 2;
+  const DAYS_ENUM = Object.freeze({});
+
+  // TS : Enum. 열거형. 서로 연관된 상수들의 집합
 }
 ```
 
