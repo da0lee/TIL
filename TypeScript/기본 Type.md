@@ -345,16 +345,80 @@
 
 ```jsx
 {
-  // 변하지 않는 상수값의 관리
+ // 변하지 않는 상수값의 관리
   // JS : Object.freeze
   const MAX_NUM = 6;
   const MONDAY = 0;
   const TUESDAY = 1;
   const WEDNESDAY = 2;
-  const DAYS_ENUM = Object.freeze({});
+  const DAYS_ENUM = Object.freeze({ MONDAY: 0, TUESDAY: 1, WEDNSDAY: 2 });
+  const dayOfToday = DAYS_ENUM.MONDAY;
+
+  // enum : value 를 정하지 않으면 자동으로 index가 value로 계산되어 설정된다.
+  // 그러나 enum type으로 지정된 변수에는 어떠한 숫자도 할당할 수 있기 때문에 아래와 같이 type이 Days로 설정되었음에도 0~6 이외 숫자인 10을 할당해도 어떠한 오류도 나지 않는다. 즉 type이 정확하게 보장이 되지 않으므로 typescript에서는 되도록 enum을 쓰지 않는 것이 좋고, 대신 union type으로 이를 대체할 수 있다.
+
+  enum Days {
+    Monday,
+    Thusday,
+    wednesday,
+    thursday,
+    friday,
+    saturday,
+    sunday,
+  }
+  console.log(Days.Monday);
+  const day: Days = 10;
+  console.log(day);
 
   // TS : Enum. 열거형. 서로 연관된 상수들의 집합
+
+  // union type으로 enum을 대신 함
+  type DaysOfWeek = 'Monday' | 'Thusday' | 'wednsday';
+  let today: DaysOfWeek = 'wednsday';
 }
+
+// TS에서 enum을 쓰는 경우 : Web client <-> 다른 Mobile Client 간에 의사소통이 필요할 경우
+// 사용자 data를 json에 묶어 다시 다른 client에게 보내야 할 때 kotlin, swift 같은 native programing 언어에는 union type을 표현할 수 있는 방법이 없기 때문에 서로 이해할 수 있는 enum type을 사용한다.
+```
+
+<br/>
+
+> 2.14 타입 추론은 무엇이고, 써도 되나?
+
+```jsx
+// Type Inference
+{
+  // 선언과 동시에 문자열을 할당했기 때문에 ts에서 자동으로 string으로 type을 추론했다. 따라서 string 이외의 type을 재할당 하면 error가 발생한다.
+  let text = 'hello';
+  text = 1; //error
+
+  // 함수의 인자 type : 따로 설정하지 않으면 any가 할당된다.
+  function print(message = 'hello') {
+    console.log(message);
+  }
+  print(1); // type을 이미 string으로 추론 했으므로 string이 아닌 인자를 전달하면 error가 난다.
+}
+```
+
+<br/>
+
+> 2.15 건방진 녀석 Type Assertion!
+
+```jsx
+// Type Assertions : 타입 강제 (가정 설정문)
+// Type Assertions을 적용 하면 JS와 같이, 코드를 작성하는 시점에서는 error가 발생하지 않지만 실행 후 코드가 죽는다. 그래서 정말 장담하는 경우가 아니라면 사용하지 않는 것이 좋다.
+{
+  function jsStrFunc(): any {
+    return 'hello';
+  }
+
+  // 장담해서 쓰는 경우
+  // dom 요소를 동적으로 반환할 때, querySelector는 dom 요소 || null을 반환하는 속성을 가지고 있지만, 우리는 이것이 반드시 button 요소를 반환할 것을 알고 있기 때문에 이런 경우 사용해도 좋다.
+  const button = document.querySelector('class')!;
+  // ! 를 제거하면 null에는 nodeValue 속성이 없기 때문에 해당 속성을 이용할 수 없다.
+  button.nodeValue;
+}
+
 ```
 
 <br/>
